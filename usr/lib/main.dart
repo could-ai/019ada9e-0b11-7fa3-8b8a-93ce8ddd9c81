@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'data/nlp_module_data.dart';
+import 'utils/pdf_generator.dart';
 
 void main() {
   runApp(const NLPModuleApp());
@@ -50,6 +51,15 @@ class TableOfContentsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Modul Ajar NLP'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.picture_as_pdf),
+            tooltip: 'Download PDF',
+            onPressed: () {
+              PdfGenerator.generateAndPrint();
+            },
+          ),
+        ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(30),
           child: Padding(
@@ -101,6 +111,13 @@ class TableOfContentsScreen extends StatelessWidget {
             ),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+           PdfGenerator.generateAndPrint();
+        },
+        icon: const Icon(Icons.print),
+        label: const Text("Cetak PDF"),
       ),
     );
   }
